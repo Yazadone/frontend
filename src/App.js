@@ -3,16 +3,19 @@ import { SearchForm } from ".//Components/searchform/searchform.jsx";
 import {DetailsPage} from "./Components/detailspage/detailspage";
 import { useState } from "react";
 
+const SERVER_URL = process.env.REACT_APP_Server_Url || "http://localhost:3000";
+
 function App() {
   // Stores the search results
   const [articles, setArticles] = useState([]);
+
 
   return (
     <div>
       <h1>Search New York Times articles here!</h1>
 
       <SearchForm onSearch={async (query) => {
-        const response = await fetch(`http://localhost:3000/api/search?query=${query}`);
+        const response = await fetch(`${SERVER_URL}/api/search?query=${query}`);
         const data = await response.json();
         setArticles(data.response.docs);
       }}/>
